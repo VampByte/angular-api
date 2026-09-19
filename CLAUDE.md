@@ -37,7 +37,9 @@ Base: `https://peticiones.online/api/users`
 
 `:id` es el `_id` de Mongo (string), no el campo numérico `id` — el endpoint rechaza el id numérico con `{"error":"El id debe ser correcto"}`.
 
-Es una API de pruebas: las respuestas de create/update/delete son mockeadas (no persisten), pero devuelven una respuesta válida (OK/KO) para gestionar avisos al usuario.
+Es una API de pruebas: las respuestas de create/update/delete son mockeadas (no persisten), pero devuelven una respuesta válida (OK/KO) para gestionar avisos al usuario. Verificado en vivo: un `DELETE` devuelve `200` con el usuario, pero un `GET` inmediatamente después sigue trayendo el mismo usuario sin cambios — el servidor nunca borra nada de verdad, ni desde Home ni desde `user-view`.
+
+**Pendiente (revisar al final del proyecto, no bloquea ninguna fase):** el borrado desde Home oculta al usuario "eliminado" con un filtro en memoria (`users.update(...)`), que se pierde en un F5. Se probó ocultar el eliminado en Home al volver desde `/user/:id` pasando el id por `Router.navigate(..., { state })`, pero se revirtió porque ese mecanismo sobrevive a un F5 y el borrado desde Home no, generando una inconsistencia distinta. Si se quiere una experiencia uniforme entre ambos caminos, evaluar mover el filtrado a un estado compartido (ej. `sessionStorage` o una señal en `UsersService`) en vez de arreglarlo por separado en cada componente.
 
 **Contrato real de `POST /api/users`** (confirmado contra la doc en `https://peticiones.online/users`): el body espera `first_name`, `last_name`, `username`, `email`, `password` — **no** un campo `image` (la imagen se genera del lado del servidor a partir del email, ej. `https://i.pravatar.cc/500?u=<email>`). El enunciado de la actividad pide igualmente validar una URL de imagen en el formulario, así que el campo se mantiene y se envía en el body (el API simplemente lo ignora, no rompe nada). `PUT /api/users/:id` acepta actualizaciones parciales (no hace falta mandar todos los campos).
 

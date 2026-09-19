@@ -1,6 +1,6 @@
 # angular-api — Actividad 6 (UNIR)
 
-CRUD de usuarios en Angular contra la API externa `https://peticiones.online/users`. Actividad universitaria; el enunciado completo está en `resources/actividad-6.md` (carpeta local, excluida del repo vía `.gitignore`).
+CRUD de usuarios en Angular contra la API externa `https://peticiones.online/api/users`. Actividad universitaria; el enunciado completo está en `resources/actividad-6.md` (carpeta local, excluida del repo vía `.gitignore`).
 
 ## Stack
 
@@ -25,15 +25,17 @@ CRUD de usuarios en Angular contra la API externa `https://peticiones.online/use
 
 ## API externa
 
-Base: `https://peticiones.online/users`
+Base: `https://peticiones.online/api/users`
 
 | Método | Endpoint | Uso |
 |---|---|---|
-| GET | `/users` | Listado completo (Home) |
-| GET | `/users/:id` | Detalle de usuario |
-| POST | `/users` | Crear usuario (mockeado, devuelve el usuario con id) |
-| PUT | `/users/:id` | Actualizar usuario (mockeado) |
-| DELETE | `/users/:id` | Borrar usuario (mockeado) |
+| GET | `/api/users` | Listado completo (Home) — respuesta paginada `{ page, per_page, total, total_pages, results: IUser[] }` |
+| GET | `/api/users/:id` | Detalle de usuario |
+| POST | `/api/users` | Crear usuario (mockeado, devuelve el usuario con id) |
+| PUT | `/api/users/:id` | Actualizar usuario (mockeado) |
+| DELETE | `/api/users/:id` | Borrar usuario (mockeado) |
+
+`:id` es el `_id` de Mongo (string), no el campo numérico `id` — el endpoint rechaza el id numérico con `{"error":"El id debe ser correcto"}`.
 
 Es una API de pruebas: las respuestas de create/update/delete son mockeadas (no persisten), pero devuelven una respuesta válida (OK/KO) para gestionar avisos al usuario.
 
@@ -50,7 +52,7 @@ Es una API de pruebas: las respuestas de create/update/delete son mockeadas (no 
 ## Roadmap (4 fases, 1 por día)
 
 - [x] **Fase 1** — Cimientos: proyecto Angular 22 + Tailwind v4 + SweetAlert2 instalado, estructura de carpetas, rutas base, navbar, placeholders con dirección visual base.
-- [ ] **Fase 2** — `IUser`, `UsersService` completo (CRUD con promesas vía `firstValueFrom`), vista Home consumiendo `getAll`, borrado desde el home con SweetAlert2.
+- [x] **Fase 2** — `IUser`, `UsersService` completo (CRUD con promesas vía `firstValueFrom`), vista Home consumiendo `getAll`, borrado desde el home con SweetAlert2.
 - [ ] **Fase 3** — Vista `/user/:id` completa con sus 3 botones, formulario `/newuser` con validaciones (Reactive Forms) conectado a `create` (POST).
 - [ ] **Fase 4** — Reutilizar el formulario para `/updateuser/:id` (modo edición + precarga + PUT), pulido visual, revisión end-to-end, README.
 

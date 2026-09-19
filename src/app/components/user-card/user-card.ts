@@ -1,13 +1,18 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { IUser } from '../../interfaces/user.interface';
 
 @Component({
-  imports: [],
+  imports: [RouterLink],
   selector: 'app-user-card',
   styleUrl: './user-card.css',
   templateUrl: './user-card.html',
 })
 export class UserCard {
-  name = input('Nombre de usuario');
-  email = input('correo@ejemplo.com');
-  avatarUrl = input('https://i.pravatar.cc/150');
+  user = input.required<IUser>();
+  delete = output<void>();
+
+  onDeleteClick(): void {
+    this.delete.emit();
+  }
 }

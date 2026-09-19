@@ -1,7 +1,13 @@
 <h1 class="mb-6 text-2xl font-bold text-slate-900">Listado de usuarios</h1>
 
-<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-  @for (u of users; track u.email) {
-    <app-user-card [name]="u.name" [email]="u.email" [avatarUrl]="u.avatarUrl" />
-  }
-</div>
+@if (loading()) {
+  <p class="text-slate-500">Cargando usuarios…</p>
+} @else if (error()) {
+  <p class="text-red-600">{{ error() }}</p>
+} @else {
+  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    @for (u of users(); track u._id) {
+      <app-user-card [user]="u" (delete)="onDelete(u)" />
+    }
+  </div>
+}

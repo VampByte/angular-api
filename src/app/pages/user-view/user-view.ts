@@ -69,7 +69,7 @@ export class UserView {
 				text: 'El usuario se ha eliminado correctamente.',
 				icon: 'success',
 			});
-			this.router.navigate(['/home'], { state: { deletedUserId: user._id } });
+			this.router.navigate(['/home']);
 		} catch {
 			await Swal.fire({
 				title: 'Error',

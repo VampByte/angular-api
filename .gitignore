@@ -3,6 +3,9 @@
 # Local reference material (not part of the delivered project)
 /resources/
 
+# Impeccable design-review snapshots (local tooling artifact)
+/.impeccable/
+
 # Compiled output
 /dist
 /tmp

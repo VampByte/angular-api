@@ -18,7 +18,11 @@ export class Home implements OnInit {
   error = signal<string | null>(null);
 
   async ngOnInit(): Promise<void> {
+    const deletedUserId = (history.state as { deletedUserId?: string } | null)?.deletedUserId;
     await this.loadUsers();
+    if (deletedUserId) {
+      this.users.update((list) => list.filter((u) => u._id !== deletedUserId));
+    }
   }
 
   private async loadUsers(): Promise<void> {

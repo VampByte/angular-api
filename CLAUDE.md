@@ -39,6 +39,8 @@ Base: `https://peticiones.online/api/users`
 
 Es una API de pruebas: las respuestas de create/update/delete son mockeadas (no persisten), pero devuelven una respuesta válida (OK/KO) para gestionar avisos al usuario.
 
+**Contrato real de `POST /api/users`** (confirmado contra la doc en `https://peticiones.online/users`): el body espera `first_name`, `last_name`, `username`, `email`, `password` — **no** un campo `image` (la imagen se genera del lado del servidor a partir del email, ej. `https://i.pravatar.cc/500?u=<email>`). El enunciado de la actividad pide igualmente validar una URL de imagen en el formulario, así que el campo se mantiene y se envía en el body (el API simplemente lo ignora, no rompe nada). `PUT /api/users/:id` acepta actualizaciones parciales (no hace falta mandar todos los campos).
+
 ## Rutas de la app
 
 | Ruta | Componente | Descripción |
@@ -53,7 +55,7 @@ Es una API de pruebas: las respuestas de create/update/delete son mockeadas (no 
 
 - [x] **Fase 1** — Cimientos: proyecto Angular 22 + Tailwind v4 + SweetAlert2 instalado, estructura de carpetas, rutas base, navbar, placeholders con dirección visual base.
 - [x] **Fase 2** — `IUser`, `UsersService` completo (CRUD con promesas vía `firstValueFrom`), vista Home consumiendo `getAll`, borrado desde el home con SweetAlert2.
-- [ ] **Fase 3** — Vista `/user/:id` completa con sus 3 botones, formulario `/newuser` con validaciones (Reactive Forms) conectado a `create` (POST).
-- [ ] **Fase 4** — Reutilizar el formulario para `/updateuser/:id` (modo edición + precarga + PUT), pulido visual, revisión end-to-end, README.
+- [x] **Fase 3** — Vista `/user/:id` con datos reales (`effect()` sobre `id()`), sus 3 botones (Volver/Actualizar/Eliminar con confirmación SweetAlert2), y formulario `/newuser` con Reactive Forms + validaciones conectado a `create` (POST). El submit ya soporta también el modo edición (`update`/PUT) reusando el mismo `FormGroup`, pero **sin precarga de datos todavía** — eso es Fase 4.
+- [ ] **Fase 4** — Precarga de datos en `/updateuser/:id` (modo edición completo), pulido visual, revisión end-to-end, README.
 
 Este archivo se actualiza al cierre de cada fase (marcando el checkbox correspondiente).

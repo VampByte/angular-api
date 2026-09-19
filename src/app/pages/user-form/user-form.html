@@ -3,26 +3,64 @@
 		{{ isEditMode() ? 'Actualizar usuario' : 'Nuevo usuario' }}
 	</h1>
 	<p class="mb-6 text-sm text-slate-500">
-		Formulario con validaciones y conexión al API (fase 3/4).
+		Completá los datos para {{ isEditMode() ? 'actualizar' : 'registrar' }} el usuario.
 	</p>
 
-	<form class="flex flex-col gap-4">
+	<form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
+		<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+			<div>
+				<label for="first_name" class="mb-1 block text-sm font-medium text-slate-700">Nombre</label>
+				<input id="first_name" type="text" formControlName="first_name" placeholder="Nombre"
+					[class]="'w-full rounded-md border px-3 py-2 text-sm ' + (fieldInvalid('first_name') ? 'border-red-500' : 'border-slate-300')" />
+				@if (fieldInvalid('first_name')) {
+					<p class="mt-1 text-xs text-red-600">{{ fieldErrorMessage('first_name') }}</p>
+				}
+			</div>
+
+			<div>
+				<label for="last_name" class="mb-1 block text-sm font-medium text-slate-700">Apellido</label>
+				<input id="last_name" type="text" formControlName="last_name" placeholder="Apellido"
+					[class]="'w-full rounded-md border px-3 py-2 text-sm ' + (fieldInvalid('last_name') ? 'border-red-500' : 'border-slate-300')" />
+				@if (fieldInvalid('last_name')) {
+					<p class="mt-1 text-xs text-red-600">{{ fieldErrorMessage('last_name') }}</p>
+				}
+			</div>
+		</div>
+
 		<div>
-			<label for="name" class="mb-1 block text-sm font-medium text-slate-700">Nombre</label>
-			<input id="name" type="text" disabled placeholder="Nombre completo"
-				class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm disabled:bg-slate-50" />
+			<label for="username" class="mb-1 block text-sm font-medium text-slate-700">Usuario</label>
+			<input id="username" type="text" formControlName="username" placeholder="nombre.apellido"
+				[class]="'w-full rounded-md border px-3 py-2 text-sm ' + (fieldInvalid('username') ? 'border-red-500' : 'border-slate-300')" />
+			@if (fieldInvalid('username')) {
+				<p class="mt-1 text-xs text-red-600">{{ fieldErrorMessage('username') }}</p>
+			}
 		</div>
 
 		<div>
 			<label for="email" class="mb-1 block text-sm font-medium text-slate-700">Email</label>
-			<input id="email" type="email" disabled placeholder="correo@ejemplo.com"
-				class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm disabled:bg-slate-50" />
+			<input id="email" type="email" formControlName="email" placeholder="correo@ejemplo.com"
+				[class]="'w-full rounded-md border px-3 py-2 text-sm ' + (fieldInvalid('email') ? 'border-red-500' : 'border-slate-300')" />
+			@if (fieldInvalid('email')) {
+				<p class="mt-1 text-xs text-red-600">{{ fieldErrorMessage('email') }}</p>
+			}
 		</div>
 
 		<div>
-			<label for="imageUrl" class="mb-1 block text-sm font-medium text-slate-700">URL de imagen</label>
-			<input id="imageUrl" type="text" disabled placeholder="https://..."
-				class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm disabled:bg-slate-50" />
+			<label for="password" class="mb-1 block text-sm font-medium text-slate-700">Contraseña</label>
+			<input id="password" type="password" formControlName="password" placeholder="••••••••"
+				[class]="'w-full rounded-md border px-3 py-2 text-sm ' + (fieldInvalid('password') ? 'border-red-500' : 'border-slate-300')" />
+			@if (fieldInvalid('password')) {
+				<p class="mt-1 text-xs text-red-600">{{ fieldErrorMessage('password') }}</p>
+			}
+		</div>
+
+		<div>
+			<label for="image" class="mb-1 block text-sm font-medium text-slate-700">URL de imagen</label>
+			<input id="image" type="text" formControlName="image" placeholder="https://..."
+				[class]="'w-full rounded-md border px-3 py-2 text-sm ' + (fieldInvalid('image') ? 'border-red-500' : 'border-slate-300')" />
+			@if (fieldInvalid('image')) {
+				<p class="mt-1 text-xs text-red-600">{{ fieldErrorMessage('image') }}</p>
+			}
 		</div>
 
 		<div class="mt-2 flex gap-3">
@@ -30,9 +68,9 @@
 				class="flex-1 rounded-md border border-slate-300 px-4 py-2 text-center text-sm font-medium text-slate-700 transition hover:bg-slate-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-400">
 				Cancelar
 			</a>
-			<button type="button" disabled
-				class="flex-1 rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-indigo-700 disabled:opacity-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-				{{ isEditMode() ? 'Actualizar' : 'Guardar' }}
+			<button type="submit" [disabled]="submitting()"
+				class="flex-1 cursor-pointer rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+				{{ submitting() ? 'Guardando…' : (isEditMode() ? 'Actualizar' : 'Guardar') }}
 			</button>
 		</div>
 	</form>

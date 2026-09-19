@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   imports: [],
@@ -6,4 +6,8 @@ import { Component } from '@angular/core';
   styleUrl: './user-card.css',
   templateUrl: './user-card.html',
 })
-export class UserCard {}
+export class UserCard {
+  name = input('Nombre de usuario');
+  email = input('correo@ejemplo.com');
+  avatarUrl = input('https://i.pravatar.cc/150');
+}

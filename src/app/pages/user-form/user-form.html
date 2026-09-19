@@ -8,8 +8,9 @@
 
   <form class="flex flex-col gap-4">
     <div>
-      <label class="mb-1 block text-sm font-medium text-slate-700">Nombre</label>
+      <label for="name" class="mb-1 block text-sm font-medium text-slate-700">Nombre</label>
       <input
+        id="name"
         type="text"
         disabled
         placeholder="Nombre completo"
@@ -18,8 +19,9 @@
     </div>
 
     <div>
-      <label class="mb-1 block text-sm font-medium text-slate-700">Email</label>
+      <label for="email" class="mb-1 block text-sm font-medium text-slate-700">Email</label>
       <input
+        id="email"
         type="email"
         disabled
         placeholder="correo@ejemplo.com"
@@ -28,8 +30,9 @@
     </div>
 
     <div>
-      <label class="mb-1 block text-sm font-medium text-slate-700">URL de imagen</label>
+      <label for="imageUrl" class="mb-1 block text-sm font-medium text-slate-700">URL de imagen</label>
       <input
+        id="imageUrl"
         type="text"
         disabled
         placeholder="https://..."
@@ -37,12 +40,20 @@
       />
     </div>
 
-    <button
-      type="button"
-      disabled
-      class="mt-2 rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-indigo-700 disabled:opacity-50"
-    >
-      {{ isEditMode() ? 'Actualizar' : 'Guardar' }}
-    </button>
+    <div class="mt-2 flex gap-3">
+      <a
+        routerLink="/home"
+        class="flex-1 rounded-md border border-slate-300 px-4 py-2 text-center text-sm font-medium text-slate-700 transition hover:bg-slate-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-400"
+      >
+        Cancelar
+      </a>
+      <button
+        type="button"
+        disabled
+        class="flex-1 rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-indigo-700 disabled:opacity-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+      >
+        {{ isEditMode() ? 'Actualizar' : 'Guardar' }}
+      </button>
+    </div>
   </form>
 </div>

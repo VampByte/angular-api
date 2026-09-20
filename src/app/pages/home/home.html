@@ -8,6 +8,8 @@
 	<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
 		@for (u of users(); track u._id) {
 		<app-user-card [user]="u" (delete)="onDelete(u)" />
+		} @empty {
+		<p class="col-span-full text-center text-slate-500">No hay usuarios para mostrar.</p>
 		}
 	</div>
 }

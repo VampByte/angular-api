@@ -6,7 +6,7 @@
 	} @else if (user(); as u) {
 		<div class="flex flex-col items-center gap-1 text-center">
 			<img [src]="u.image" [alt]="'Foto de ' + u.first_name + ' ' + u.last_name" class="h-28 w-28 rounded-full object-cover" />
-			<h1 class="mt-2 text-xl font-bold text-slate-900">{{ u.first_name }} {{ u.last_name }}</h1>
+			<h1 class="mt-2 break-words text-xl font-bold text-slate-900">{{ u.first_name }} {{ u.last_name }}</h1>
 			<p class="text-sm text-slate-500">{{ u.email }}</p>
 			<p class="text-xs text-slate-400">Usuario: {{ u.username }}</p>
 		</div>

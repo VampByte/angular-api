@@ -58,6 +58,10 @@ Es una API de pruebas: las respuestas de create/update/delete son mockeadas (no 
 - [x] **Fase 1** — Cimientos: proyecto Angular 22 + Tailwind v4 + SweetAlert2 instalado, estructura de carpetas, rutas base, navbar, placeholders con dirección visual base.
 - [x] **Fase 2** — `IUser`, `UsersService` completo (CRUD con promesas vía `firstValueFrom`), vista Home consumiendo `getAll`, borrado desde el home con SweetAlert2.
 - [x] **Fase 3** — Vista `/user/:id` con datos reales (`effect()` sobre `id()`), sus 3 botones (Volver/Actualizar/Eliminar con confirmación SweetAlert2), y formulario `/newuser` con Reactive Forms + validaciones conectado a `create` (POST). El submit ya soporta también el modo edición (`update`/PUT) reusando el mismo `FormGroup`, pero **sin precarga de datos todavía** — eso es Fase 4.
-- [ ] **Fase 4** — Precarga de datos en `/updateuser/:id` (modo edición completo), pulido visual, revisión end-to-end, README.
+- [x] **Fase 4** — Precarga de `/updateuser/:id` vía `effect()` + `form.patchValue()` (mismo patrón que `user-view`), completando el CRUD. Pulido visual: estado vacío en el home (`@empty`), `truncate`/`break-words` para nombres largos. README reemplazado por uno real del proyecto.
+
+## Pendientes conocidos (no bloquean la entrega)
+
+- Inconsistencia de borrado Home vs. detalle ante un F5 manual — ver nota en la sección de API externa arriba. No afecta la rúbrica.
 
 Este archivo se actualiza al cierre de cada fase (marcando el checkbox correspondiente).

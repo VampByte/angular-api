@@ -35,8 +35,8 @@ export class UserView {
 		try {
 			const user = await this.usersService.getById(userId);
 			this.user.set(user);
-		} catch {
-			this.error.set('No se pudo cargar el usuario.');
+		} catch (err) {
+			this.error.set(err instanceof Error ? err.message : 'No se pudo cargar el usuario.');
 		} finally {
 			this.loading.set(false);
 		}
@@ -70,10 +70,10 @@ export class UserView {
 				icon: 'success',
 			});
 			this.router.navigate(['/home']);
-		} catch {
+		} catch (err) {
 			await Swal.fire({
 				title: 'Error',
-				text: 'No se pudo eliminar el usuario. Inténtalo de nuevo.',
+				text: err instanceof Error ? err.message : 'No se pudo eliminar el usuario. Inténtalo de nuevo.',
 				icon: 'error',
 			});
 		}

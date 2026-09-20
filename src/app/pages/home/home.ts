@@ -27,8 +27,8 @@ export class Home implements OnInit {
     try {
       const data = await this.usersService.getAll();
       this.users.set(data);
-    } catch {
-      this.error.set('No se pudo cargar el listado de usuarios.');
+    } catch (err) {
+      this.error.set(err instanceof Error ? err.message : 'No se pudo cargar el listado de usuarios.');
     } finally {
       this.loading.set(false);
     }
@@ -57,10 +57,10 @@ export class Home implements OnInit {
         text: 'El usuario se ha eliminado correctamente.',
         icon: 'success',
       });
-    } catch {
+    } catch (err) {
       await Swal.fire({
         title: 'Error',
-        text: 'No se pudo eliminar el usuario. Inténtalo de nuevo.',
+        text: err instanceof Error ? err.message : 'No se pudo eliminar el usuario. Inténtalo de nuevo.',
         icon: 'error',
       });
     }

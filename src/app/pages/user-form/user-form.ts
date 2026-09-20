@@ -57,8 +57,8 @@ export class UserForm {
 		try {
 			const user = await this.usersService.getById(userId);
 			this.form.patchValue(user);
-		} catch {
-			this.loadError.set('No se pudo cargar el usuario a editar.');
+		} catch (err) {
+			this.loadError.set(err instanceof Error ? err.message : 'No se pudo cargar el usuario a editar.');
 		} finally {
 			this.loadingUser.set(false);
 		}
@@ -109,12 +109,13 @@ export class UserForm {
 				});
 			}
 			this.router.navigate(['/home']);
-		} catch {
+		} catch (err) {
+			const fallback = this.isEditMode()
+				? 'No se pudo actualizar el usuario. Inténtalo de nuevo.'
+				: 'No se pudo crear el usuario. Inténtalo de nuevo.';
 			await Swal.fire({
 				title: 'Error',
-				text: this.isEditMode()
-					? 'No se pudo actualizar el usuario. Inténtalo de nuevo.'
-					: 'No se pudo crear el usuario. Inténtalo de nuevo.',
+				text: err instanceof Error ? err.message : fallback,
 				icon: 'error',
 			});
 		} finally {

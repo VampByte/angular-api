@@ -6,6 +6,12 @@
 		Completá los datos para {{ isEditMode() ? 'actualizar' : 'registrar' }} el usuario.
 	</p>
 
+	@if (isEditMode() && loadingUser()) {
+		<p class="text-center text-slate-500">Cargando usuario…</p>
+	} @else if (isEditMode() && loadError()) {
+		<p class="text-center text-red-600">{{ loadError() }}</p>
+	} @else {
+
 	<form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
 		<div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
 			<div>
@@ -74,4 +80,6 @@
 			</button>
 		</div>
 	</form>
+
+	}
 </div>

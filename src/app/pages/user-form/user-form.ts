@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, signal } from '@angular/core';
+import { Component, computed, effect, inject, input, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -30,6 +30,8 @@ export class UserForm {
 	isEditMode = computed(() => !!this.id());
 
 	submitting = signal(false);
+	loadingUser = signal(false);
+	loadError = signal<string | null>(null);
 
 	form = this.fb.nonNullable.group({
 		first_name: ['', [Validators.required]],
@@ -39,6 +41,28 @@ export class UserForm {
 		password: ['', [Validators.required]],
 		image: ['', [Validators.required, Validators.pattern(/^https?:\/\/.+/)]],
 	});
+
+	constructor() {
+		effect(() => {
+			const userId = this.id();
+			if (userId) {
+				this.loadUserToEdit(userId);
+			}
+		});
+	}
+
+	private async loadUserToEdit(userId: string): Promise<void> {
+		this.loadingUser.set(true);
+		this.loadError.set(null);
+		try {
+			const user = await this.usersService.getById(userId);
+			this.form.patchValue(user);
+		} catch {
+			this.loadError.set('No se pudo cargar el usuario a editar.');
+		} finally {
+			this.loadingUser.set(false);
+		}
+	}
 
 	fieldInvalid(name: FieldName): boolean {
 		const control = this.form.controls[name];

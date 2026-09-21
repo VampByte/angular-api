@@ -4,26 +4,29 @@
 	} @else if (error()) {
 		<p class="text-center text-red-600">{{ error() }}</p>
 	} @else if (user(); as u) {
-		<div class="flex flex-col items-center gap-1 text-center">
-			<img [src]="u.image" [alt]="'Foto de ' + u.first_name + ' ' + u.last_name" class="h-28 w-28 rounded-full object-cover" />
-			<h1 class="mt-2 break-words text-xl font-bold text-slate-900">{{ u.first_name }} {{ u.last_name }}</h1>
-			<p class="text-sm text-slate-500">{{ u.email }}</p>
-			<p class="text-xs text-slate-400">Usuario: {{ u.username }}</p>
-		</div>
+		<div class="flex flex-col items-center gap-8 sm:flex-row sm:items-start">
+			<img [src]="u.image" [alt]="'Foto de ' + u.first_name + ' ' + u.last_name" class="h-32 w-32 flex-shrink-0 rounded-full object-cover" />
 
-		<div class="mt-8 flex flex-col gap-2 sm:flex-row">
-			<a routerLink="/home"
-				class="flex-1 rounded-md border border-slate-300 px-4 py-2 text-center text-sm font-medium text-slate-700 transition hover:bg-slate-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-400">
-				Volver al listado
-			</a>
-			<a [routerLink]="['/updateuser', u._id]"
-				class="flex-1 rounded-md bg-amber-500 px-4 py-2 text-center text-sm font-medium text-white transition hover:bg-amber-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500">
-				Actualizar
-			</a>
-			<button type="button" (click)="onDelete()"
-				class="flex-1 cursor-pointer rounded-md border border-red-600 bg-transparent px-4 py-2 text-sm font-medium text-red-600 transition hover:bg-red-600 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">
-				Eliminar
-			</button>
+			<div class="flex-1 text-center sm:text-left">
+				<h1 class="break-words text-xl font-bold text-slate-900">{{ u.first_name }} {{ u.last_name }}</h1>
+				<p class="text-sm text-slate-500">{{ u.email }}</p>
+				<p class="text-xs text-slate-400">Usuario: {{ u.username }}</p>
+
+				<div class="mt-8 flex flex-col gap-2 sm:flex-row">
+					<a routerLink="/home"
+						class="flex-1 rounded-md border border-slate-300 px-4 py-2 text-center text-sm font-medium text-slate-700 transition hover:bg-slate-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-400">
+						Volver al listado
+					</a>
+					<a [routerLink]="['/updateuser', u._id]"
+						class="flex-1 rounded-md bg-amber-500 px-4 py-2 text-center text-sm font-medium text-white transition hover:bg-amber-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500">
+						Actualizar
+					</a>
+					<button type="button" (click)="onDelete()"
+						class="flex-1 cursor-pointer rounded-md border border-red-600 bg-transparent px-4 py-2 text-sm font-medium text-red-600 transition hover:bg-red-600 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">
+						Eliminar
+					</button>
+				</div>
+			</div>
 		</div>
 	}
 </div>

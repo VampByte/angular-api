@@ -14,30 +14,40 @@ export class UsersService {
 
 	async getAll(): Promise<IUser[]> {
 		const response = await firstValueFrom(this.http.get<IUsersResponse>(this.baseUrl));
+		console.log(`[UsersService] GET ${this.baseUrl} →`, response);
 		return response.results;
 	}
 
 	// Get user by ID
 	async getById(userId: string): Promise<IUser> {
-		const response = await firstValueFrom(this.http.get<IUser | IApiError>(`${this.baseUrl}/${userId}`));
+		const url = `${this.baseUrl}/${userId}`;
+		const response = await firstValueFrom(this.http.get<IUser | IApiError>(url));
+		console.log(`[UsersService] GET ${url} →`, response);
 		return this.assertOk(response);
 	}
 
 	// Crear usuario
 	async create(user: Partial<IUser>): Promise<IUser> {
+		console.log(`[UsersService] POST ${this.baseUrl} body:`, user);
 		const response = await firstValueFrom(this.http.post<IUser | IApiError>(this.baseUrl, user));
+		console.log(`[UsersService] POST ${this.baseUrl} →`, response);
 		return this.assertOk(response);
 	}
 
 	// Actualizar usuario
 	async update(userId: string, user: Partial<IUser>): Promise<IUser> {
-		const response = await firstValueFrom(this.http.put<IUser | IApiError>(`${this.baseUrl}/${userId}`, user));
+		const url = `${this.baseUrl}/${userId}`;
+		console.log(`[UsersService] PUT ${url} body:`, user);
+		const response = await firstValueFrom(this.http.put<IUser | IApiError>(url, user));
+		console.log(`[UsersService] PUT ${url} →`, response);
 		return this.assertOk(response);
 	}
 
 	// Eliminar usuario
 	async delete(userId: string): Promise<IUser> {
-		const response = await firstValueFrom(this.http.delete<IUser | IApiError>(`${this.baseUrl}/${userId}`));
+		const url = `${this.baseUrl}/${userId}`;
+		const response = await firstValueFrom(this.http.delete<IUser | IApiError>(url));
+		console.log(`[UsersService] DELETE ${url} →`, response);
 		return this.assertOk(response);
 	}
 

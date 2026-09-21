@@ -3,6 +3,9 @@
 # Local reference material (not part of the delivered project)
 /resources/
 
+# Instrucciones internas de trabajo (no forman parte de la entrega)
+/CLAUDE.md
+
 # Impeccable design-review snapshots (local tooling artifact)
 /.impeccable/
 

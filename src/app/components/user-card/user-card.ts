@@ -3,16 +3,16 @@ import { RouterLink } from '@angular/router';
 import { IUser } from '../../interfaces/user.interface';
 
 @Component({
-  imports: [RouterLink],
-  selector: 'app-user-card',
-  styleUrl: './user-card.css',
-  templateUrl: './user-card.html',
+	imports: [RouterLink],
+	selector: 'app-user-card',
+	styleUrl: './user-card.css',
+	templateUrl: './user-card.html',
 })
 export class UserCard {
-  user = input.required<IUser>();
-  delete = output<void>();
+	user = input.required<IUser>();
+	delete = output<void>();
 
-  onDeleteClick(): void {
-    this.delete.emit();
-  }
+	onDeleteClick(): void {
+		this.delete.emit();
+	}
 }
